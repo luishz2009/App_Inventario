@@ -22,6 +22,9 @@ public class ProductoEntity {
     private String nombre;
     private float precio;
 
+    /*
+     muchos productos pueden pertenecer a una categoria
+     */
     @ManyToOne
     @JoinColumn(name = "categoria_id")
     private CategoriaEntity categoria;

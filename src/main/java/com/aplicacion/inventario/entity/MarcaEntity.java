@@ -6,13 +6,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-@Table(name = "categorias")
-public class CategoriaEntity {
+@Entity(name = "marcas")
+public class MarcaEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -21,28 +22,18 @@ public class CategoriaEntity {
     @Column(length = 100, nullable = false, unique = true)
     private String nombre;
 
-    @ManyToOne //Muchas categorias pueden pertenecer a una marca
+    @OneToMany //Una marca puede tener muchas categorias
     @JoinColumn(name = "marca_id")
-    private MarcaEntity marca;
+    private List<CategoriaEntity> categorias = new ArrayList<>(); //Esta es la que va en el formulario form_marca
 
-    public CategoriaEntity(MarcaEntity marca) {
-        this.marca = marca;
+    public MarcaEntity(Integer id) {
+        this.id = id;
     }
 
-    public MarcaEntity getMarca() {
-        return marca;
-    }
-
-    public void setMarca(MarcaEntity marca) {
-        this.marca = marca;
-    }
-
-    public CategoriaEntity(String nombre) {
+    public MarcaEntity(String nombre, List<CategoriaEntity> categorias) {
         this.nombre = nombre;
+        this.categorias = categorias;
     }
 
-    @Override
-    public String toString() {
-        return  nombre;
-    }
+
 }

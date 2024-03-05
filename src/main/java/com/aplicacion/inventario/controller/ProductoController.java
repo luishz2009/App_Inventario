@@ -7,10 +7,7 @@ import com.aplicacion.inventario.repositories.ProductoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -42,12 +39,12 @@ public class ProductoController {
 
     @GetMapping("/productos/editar/{id}")
     public String formActualizarProducto(@PathVariable("id") Integer id, Model model) {
-        ProductoEntity producto = productoRepository.findById(id).orElse(null);
+        ProductoEntity producto = productoRepository.findById(id).get();
 
-        model.addAttribute("producto", producto);
         List<CategoriaEntity> listaCategorias = categoriaRepository.findAll();
         model.addAttribute("listaCategorias", listaCategorias);
-        return "form_editar_producto";
+        model.addAttribute("producto", producto);
+        return "form_producto";
     }
     @GetMapping("/productos/eliminar/{id}")
     public String eliminarProducto(@PathVariable("id") Integer id){
