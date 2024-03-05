@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -47,8 +48,11 @@ public class MarcaController {
 
         List<CategoriaEntity> listaCategorias = categoriaRepository.findAll();
         model.addAttribute("listaCategorias", listaCategorias);
-
         return "form_marca";
     }
-
+    @GetMapping("/marcas/eliminar/{id}")
+    public String eliminarMarca(@PathVariable ("id") Integer id){
+        marcaRepository.deleteById(id);
+        return "redirect:/marcas";
+    }
 }

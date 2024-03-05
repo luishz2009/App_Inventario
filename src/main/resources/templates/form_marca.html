@@ -43,7 +43,7 @@
                 <div class="col-sm-8">
                     <select th:field="*{categorias}" class="form-control" multiple="multiple"  required>
                        <th:block th:each="categoria : ${listaCategorias}">
-                           <option th:text="${categoria.nombre}" th:value="${categoria.id}"></option>
+                           <option th:text="${categoria.nombre}" th:value="${categoria.id}" ></option>
                        </th:block>
                     </select>
                 </div>
