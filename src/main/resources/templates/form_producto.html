@@ -25,30 +25,30 @@
 </nav>
 <div class="container text-center">
     <div>
-        <h1 th:if="${producto.id == null}">Agregar producto</h1>
-        <h1 th:unless="${producto.id == null}">Editar producto</h1>
+        <h1>Agregar producto</h1>
+
     </div>
 
     <form th:action="@{/productos/guardar}" th:object="${producto}" method="post"
           style="max-width:600px; margin:0 auto;">
-        <input type="hidden" th:field="*{id}" th:value="${producto.id}">
+
         <div class="m-3">
             <div class="form-group row">
                 <label class="col-form-label col-sm-4">Nombre:</label>
                 <div class="col-sm-8">
-                    <input type="text" th:field="*{nombre}" class="form-control" required>
+                    <input type="text" name="nombre" class="form-control" required>
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-form-label col-sm-4">Precio:</label>
                 <div class="col-sm-8">
-                    <input type="text" th:field="*{precio}" class="form-control" required>
+                    <input type="text" name="precio" class="form-control" required>
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-form-label col-sm-4">Seleccione una categoría:</label>
                 <div class="col-sm-8">
-                    <select th:field="*{categoria}" class="form-control" required>
+                    <select name="categoria" class="form-control" required>
                         <th:block th:each="categoria : ${listaCategorias}">
                             <option th:text="${categoria.nombre}" th:value="${categoria.id}"></option>
                         </th:block>

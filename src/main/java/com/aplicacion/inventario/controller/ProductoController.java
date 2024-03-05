@@ -44,7 +44,7 @@ public class ProductoController {
         List<CategoriaEntity> listaCategorias = categoriaRepository.findAll();
         model.addAttribute("listaCategorias", listaCategorias);
         model.addAttribute("producto", producto);
-        return "form_producto";
+        return "form_editar_producto";
     }
     @GetMapping("/productos/eliminar/{id}")
     public String eliminarProducto(@PathVariable("id") Integer id){

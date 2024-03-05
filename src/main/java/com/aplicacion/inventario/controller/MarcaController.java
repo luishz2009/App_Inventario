@@ -44,6 +44,7 @@ public class MarcaController {
     public String formActualizarMarca(@PathVariable("id") Integer id, Model model){
         MarcaEntity marca = marcaRepository.findById(id).get();
         model.addAttribute("marca", marca);
+
         List<CategoriaEntity> listaCategorias = categoriaRepository.findAll();
         model.addAttribute("listaCategorias", listaCategorias);
 
