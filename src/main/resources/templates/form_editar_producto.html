@@ -55,6 +55,19 @@
                     </select>
                 </div>
             </div>
+            <!--Si no es nulo, cargamos los detalles -->
+            <th:block  th:each="detalle, status : ${producto.listaDetalles}">
+                <input type="hidden" name="detallesId" th:value="${detalle.id}">
+                <div class="form-group row">
+                    <label class="col-form-label col-sm-4" th:text="'Detalle #' + ${status.index + 1} + ':'" ></label>
+                    <div class="col-sm-4">
+                        <input type="text" name="detallesNombre" th:value="${detalle.nombre}" class="form-control" required>
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="text" name="detallesValor" th:value="${detalle.valor}" class="form-control" required>
+                    </div>
+                </div>
+            </th:block>
             <button type="submit" class="btn btn-primary">Guardar</button>
         </div>
     </form>

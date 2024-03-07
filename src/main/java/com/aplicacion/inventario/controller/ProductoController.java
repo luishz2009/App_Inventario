@@ -1,9 +1,12 @@
 package com.aplicacion.inventario.controller;
 
 import com.aplicacion.inventario.entity.CategoriaEntity;
+import com.aplicacion.inventario.entity.ProductoDetallesEntity;
 import com.aplicacion.inventario.entity.ProductoEntity;
 import com.aplicacion.inventario.repositories.CategoriaRepository;
+import com.aplicacion.inventario.repositories.DetalleRepository;
 import com.aplicacion.inventario.repositories.ProductoRepository;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +20,9 @@ public class ProductoController {
     ProductoRepository productoRepository;
     @Autowired
     CategoriaRepository categoriaRepository;
+
+    @Autowired
+    DetalleRepository detalleRepository;
 
     @GetMapping("/productos")
     public String listarProductos(Model model){
@@ -32,7 +38,35 @@ public class ProductoController {
         return "form_producto";
     }
     @PostMapping("/productos/guardar")
-    public String guardarProducto(ProductoEntity producto){
+    public String guardarProducto(ProductoEntity producto, HttpServletRequest request){
+        String[] detallesIds = request.getParameterValues("detallesId");
+        String[] detallesNombres = request.getParameterValues("detallesNombre");
+        String[] detallesValores = request.getParameterValues("detallesValor");
+
+       /* for (int i = 0; i < detallesNombres.length; i++){
+            if (detallesIds != null && detallesIds.length > 0){
+                producto.setDetalle(Integer.valueOf(detallesIds[i]), detallesNombres[i], detallesValores[i]);
+            }else {
+                producto.agregarDetalles(detallesNombres[i], detallesValores[i]);
+            }
+        }*/
+        if (detallesNombres != null && detallesValores != null){
+            for (int i = 0; i < detallesNombres.length; i++){
+                //Si existe un Id para el detalle, significa que ya existe en la bd y se debe actualizar
+                if (detallesIds != null && detallesIds.length > i){
+                    Integer detalleId = Integer.valueOf(detallesIds[i]);
+                    ProductoDetallesEntity detalleExistente = detalleRepository.findById(detalleId).orElse(null);
+                    if (detalleExistente != null){
+                        detalleExistente.setNombre(detallesNombres[i]);
+                        detalleExistente.setValor(detallesValores[i]);
+                        detalleRepository.save(detalleExistente);
+                    }
+                }else {
+                    //Sino existe un id para el detalle, significa que es un nuevo detalle y se debe agregar
+                    producto.agregarDetalles(detallesNombres[i], detallesValores[i]);
+                }
+            }
+        }
         productoRepository.save(producto);
         return "redirect:/productos";
     }

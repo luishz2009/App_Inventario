@@ -41,9 +41,9 @@
             <div class="form-group row">
                 <label class="col-form-label col-sm-4">Seleccione una o más categorías:</label>
                 <div class="col-sm-8">
-                    <select th:field="*{categorias}" class="form-control" multiple="multiple"  required>
+                    <select th:field="*{categorias}" class="form-control" multiple required>
                        <th:block th:each="categoria : ${listaCategorias}">
-                           <option th:text="${categoria.nombre}" th:value="${categoria.id}" ></option>
+                           <option th:value="${categoria.id}" th:text="${categoria.nombre}"></option>
                        </th:block>
                     </select>
                 </div>

@@ -6,6 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -29,6 +32,9 @@ public class ProductoEntity {
     @JoinColumn(name = "categoria_id")
     private CategoriaEntity categoria;
 
+    @OneToMany(mappedBy = "producto", cascade = CascadeType.ALL)
+    private List<ProductoDetallesEntity> listaDetalles = new ArrayList<>();
+
     public ProductoEntity(String nombre) {
         this.nombre = nombre;
     }
@@ -39,5 +45,20 @@ public class ProductoEntity {
 
     public void setCategoria(CategoriaEntity categoria) {
         this.categoria = categoria;
+    }
+    public List<ProductoDetallesEntity> getListaDetalles() {
+        return listaDetalles;
+    }
+    public void setListaDetalles(List<ProductoDetallesEntity> listaDetalles) {
+        this.listaDetalles = listaDetalles;
+    }
+
+    //Vamos a crear un método para agregar los detalles
+    public void agregarDetalles(String nombre, String valor){
+        this.listaDetalles.add(new ProductoDetallesEntity(nombre, valor, this));
+    }
+
+    public void setDetalle(Integer id, String nombre, String valor){
+        this.listaDetalles.add(new ProductoDetallesEntity(id, nombre, valor, this));
     }
 }
