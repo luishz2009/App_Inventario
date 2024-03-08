@@ -43,13 +43,6 @@ public class ProductoController {
         String[] detallesNombres = request.getParameterValues("detallesNombre");
         String[] detallesValores = request.getParameterValues("detallesValor");
 
-       /* for (int i = 0; i < detallesNombres.length; i++){
-            if (detallesIds != null && detallesIds.length > 0){
-                producto.setDetalle(Integer.valueOf(detallesIds[i]), detallesNombres[i], detallesValores[i]);
-            }else {
-                producto.agregarDetalles(detallesNombres[i], detallesValores[i]);
-            }
-        }*/
         if (detallesNombres != null && detallesValores != null){
             for (int i = 0; i < detallesNombres.length; i++){
                 //Si existe un Id para el detalle, significa que ya existe en la bd y se debe actualizar

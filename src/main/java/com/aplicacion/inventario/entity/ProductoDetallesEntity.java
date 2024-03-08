@@ -18,10 +18,12 @@ public class ProductoDetallesEntity {
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    @Column(length = 150)
+    //Nota: en la bd hay que crear un índice con el campo nombre y crearlo como INDEX
+    //para que al crear o editar un producto no saque errores o datos duplicados
+    @Column(length = 150, nullable = false)
     private String nombre;
 
-    @Column(length = 50)
+    @Column(length = 50, nullable = false)
     private String valor;
 
     @ManyToOne
