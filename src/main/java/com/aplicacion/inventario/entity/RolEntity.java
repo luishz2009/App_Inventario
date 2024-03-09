@@ -19,7 +19,6 @@ public class RolEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer id;
-
     @Column(length = 100, nullable = false, unique = true)
     private String nombre;
 
@@ -34,8 +33,8 @@ public class RolEntity {
     public String toString(){
         return nombre;
     }
-    //Para poder eliminar un rol hay que generar el equals y el hashCode del id
 
+    //Para poder eliminar un rol en las pruebas unitarias hay que generar el equals y el hashCode del id
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

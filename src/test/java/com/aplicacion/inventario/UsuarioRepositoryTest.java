@@ -33,9 +33,9 @@ public class UsuarioRepositoryTest {
     }
     @Test
     public void testCrearNuevoUsuarioConUnRol(){
-        RolEntity rolEditor = entityManager.find(RolEntity.class, 2);
-        UsuarioEntity usuario = new UsuarioEntity("serway@gmail.com", "serway2009");
-        usuario.agregarRol(rolEditor);
+        RolEntity rolAdmin = entityManager.find(RolEntity.class, 1);
+        UsuarioEntity usuario = new UsuarioEntity("paco@gmail.com", "paco2024");
+        usuario.agregarRol(rolAdmin);
         usuarioRepository.save(usuario);
     }
     @Test
@@ -70,8 +70,13 @@ public class UsuarioRepositoryTest {
     public void testObtenerUsuario(){
         UsuarioEntity usuario = usuarioRepository.findById(3).get();
         entityManager.detach(usuario); //detach para que los cambios de este usuario no se guarden en la bd
+        //Es decir, los cambios no van a estar gestionados por el entityManager
         System.out.println(usuario.getEmail());
         System.out.println(usuario.getRoles());
+    }
+    @Test
+    public void testEliminarUsuario(){
+        usuarioRepository.deleteById(6);
     }
 
 }

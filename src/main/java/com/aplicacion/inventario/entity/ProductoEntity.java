@@ -39,6 +39,10 @@ public class ProductoEntity {
         this.nombre = nombre;
     }
 
+    public ProductoEntity(Integer id) {
+        this.id = id;
+    }
+
     public CategoriaEntity getCategoria() {
         return categoria;
     }
@@ -60,5 +64,12 @@ public class ProductoEntity {
 
     public void setDetalle(Integer id, String nombre, String valor){
         this.listaDetalles.add(new ProductoDetallesEntity(id, nombre, valor, this));
+    }
+
+    @Override
+    public String toString() {
+        return "ProductoEntity{" +
+                "nombre='" + nombre + '\'' +
+                '}';
     }
 }
