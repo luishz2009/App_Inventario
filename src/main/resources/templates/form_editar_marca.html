@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Agregar Marca</title>
+    <title>Editar Marca</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
           integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
 </head>
@@ -25,9 +25,10 @@
 </nav>
 <div class="container text-center">
     <div>
-        <h1>Agregar marca</h1>
+        <h1>Editar marca</h1>
     </div>
     <form th:action="@{/marcas/guardar}" th:object="${marca}" method="post" style="max-width:600px; margin:0 auto;">
+        <input type="hidden" th:field="*{id}" th:value="${marca.id}">
         <div class="m-3">
             <div class="form-group row">
 
