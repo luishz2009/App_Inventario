@@ -22,9 +22,16 @@ public class MarcaEntity {
     @Column(length = 100, nullable = false, unique = true)
     private String nombre;
 
-    @OneToMany //Una marca puede tener muchas categorias
+   /* @OneToMany //Una marca puede tener muchas categorias
     @JoinColumn(name = "marca_id")
-    private List<CategoriaEntity> categorias = new ArrayList<>(); //Esta es la que va en el formulario form_marca
+    private List<CategoriaEntity> categorias = new ArrayList<>(); //Esta es la que va en el formulario form_marca*/
+    @ManyToMany
+    @JoinTable(
+            name = "marca_categoria",
+            joinColumns = @JoinColumn(name = "marca_id"),
+            inverseJoinColumns = @JoinColumn(name = "categoria_id")
+    )
+    private List<CategoriaEntity> categorias = new ArrayList<>();
 
     public MarcaEntity(Integer id) {
         this.id = id;

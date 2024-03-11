@@ -6,6 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -21,21 +24,12 @@ public class CategoriaEntity {
     @Column(length = 100, nullable = false, unique = true)
     private String nombre;
 
-    @ManyToOne //Muchas categorias pueden pertenecer a una marca
+    /*@ManyToOne //Muchas categorias pueden pertenecer a una marca
     @JoinColumn(name = "marca_id")
-    private MarcaEntity marca;
+    private MarcaEntity marca;*/
+    @ManyToMany(mappedBy = "categorias")
+    private List<MarcaEntity> marcas = new ArrayList<>();
 
-    public CategoriaEntity(MarcaEntity marca) {
-        this.marca = marca;
-    }
-
-    public MarcaEntity getMarca() {
-        return marca;
-    }
-
-    public void setMarca(MarcaEntity marca) {
-        this.marca = marca;
-    }
 
     public CategoriaEntity(String nombre) {
         this.nombre = nombre;
