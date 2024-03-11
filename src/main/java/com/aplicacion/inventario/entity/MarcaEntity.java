@@ -41,5 +41,9 @@ public class MarcaEntity {
         this.nombre = nombre;
         this.categorias = categorias;
     }
+    @Override
+    public String toString() {
+        return  nombre;
+    }
 
 }

@@ -36,6 +36,7 @@
                 <th>Id</th>
                 <th>Nombre</th>
                 <th>Precio</th>
+                <th>Marca</th>
                 <th>Categoria</th>
                 <th>Acciones</th>
             </tr>
@@ -45,6 +46,7 @@
                 <td th:text="${producto.id}"></td>
                 <td th:text="${producto.nombre}"></td>
                 <td th:text="${producto.precio}"></td>
+                <td th:text="${producto.marca}"></td>
                 <td th:text="${producto.categoria}"></td>
                 <td>
                     <a th:href="@{'/productos/editar/' + ${producto.id}}" class="btn btn-info">Editar</a>

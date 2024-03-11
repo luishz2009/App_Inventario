@@ -1,10 +1,12 @@
 package com.aplicacion.inventario.controller;
 
 import com.aplicacion.inventario.entity.CategoriaEntity;
+import com.aplicacion.inventario.entity.MarcaEntity;
 import com.aplicacion.inventario.entity.ProductoDetallesEntity;
 import com.aplicacion.inventario.entity.ProductoEntity;
 import com.aplicacion.inventario.repositories.CategoriaRepository;
 import com.aplicacion.inventario.repositories.DetalleRepository;
+import com.aplicacion.inventario.repositories.MarcaRepository;
 import com.aplicacion.inventario.repositories.ProductoRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,9 +22,11 @@ public class ProductoController {
     ProductoRepository productoRepository;
     @Autowired
     CategoriaRepository categoriaRepository;
-
     @Autowired
     DetalleRepository detalleRepository;
+
+    @Autowired
+    MarcaRepository marcaRepository;
 
     @GetMapping("/productos")
     public String listarProductos(Model model){
@@ -33,8 +37,10 @@ public class ProductoController {
     @GetMapping("/productos/nuevo")
     public String formNuevoProducto(Model model){
         List<CategoriaEntity> listaCategorias = categoriaRepository.findAll();
+        List<MarcaEntity> listaMarcas = marcaRepository.findAll();
         model.addAttribute("productos", new ProductoEntity());
         model.addAttribute("listaCategorias", listaCategorias);
+        model.addAttribute("listaMarcas", listaMarcas);
         return "form_producto";
     }
     @PostMapping("/productos/guardar")
@@ -69,7 +75,9 @@ public class ProductoController {
         ProductoEntity producto = productoRepository.findById(id).get();
 
         List<CategoriaEntity> listaCategorias = categoriaRepository.findAll();
+        List<MarcaEntity> listaMarcas = marcaRepository.findAll();
         model.addAttribute("listaCategorias", listaCategorias);
+        model.addAttribute("listaMarcas", listaMarcas);
         model.addAttribute("producto", producto);
         return "form_editar_producto";
     }

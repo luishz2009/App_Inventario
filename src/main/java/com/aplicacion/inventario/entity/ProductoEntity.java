@@ -26,11 +26,16 @@ public class ProductoEntity {
     private float precio;
 
     /*
-     muchos productos pueden pertenecer a una categoria
+     Una categoría puede tener muchos productos
+     pero un producto solo pertenece a una categoría
      */
     @ManyToOne
     @JoinColumn(name = "categoria_id")
     private CategoriaEntity categoria;
+
+    @ManyToOne
+    @JoinColumn(name = "marca_id")
+    private MarcaEntity marca;
 
     @OneToMany(mappedBy = "producto", cascade = CascadeType.ALL)
     private List<ProductoDetallesEntity> listaDetalles = new ArrayList<>();
@@ -69,7 +74,7 @@ public class ProductoEntity {
     @Override
     public String toString() {
         return "ProductoEntity{" +
-                "nombre='" + nombre + '\'' +
+                "marca=" + marca +
                 '}';
     }
 }
