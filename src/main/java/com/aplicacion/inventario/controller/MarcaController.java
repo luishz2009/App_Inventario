@@ -34,11 +34,6 @@ public class MarcaController {
         model.addAttribute("marca", new MarcaEntity());
         return "form_marca";
     }
-   /* @PostMapping("/marcas/guardar")
-    public String guardarMarca(MarcaEntity marca){
-        marcaRepository.save(marca);
-        return "redirect:/marcas";
-    }*/
     @PostMapping("/marcas/guardar")
     public String guardarMarca(@ModelAttribute MarcaEntity marca, @RequestParam("categorias") List<Integer> categoriasById){
         List<CategoriaEntity> categoriasSeleccionadas = new ArrayList<>();

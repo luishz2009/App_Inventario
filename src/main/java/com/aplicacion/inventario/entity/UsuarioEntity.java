@@ -58,8 +58,6 @@ public class UsuarioEntity {
 
     @Override
     public String toString() {
-        return "UsuarioEntity{" +
-                "email='" + email + '\'' +
-                '}';
+        return  email;
     }
 }

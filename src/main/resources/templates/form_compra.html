@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Agregar Compra</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+          integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+</head>
+<script th:inline="javascript">
+    function calcularPrecioTotal() {
+        var cantidad = document.getElementById('cantidad').value;
+        var prunit = document.getElementById('prunit').value;
+        var prtotal = cantidad * prunit;
+        document.getElementById('prtotal').value = prtotal.toFixed(0); //Redondear a cero decimales
+    }
+</script>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="">App Inventario</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a href="http://localhost:8080/">Inicio</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container text-center">
+    <div>
+        <h1>Agregar productos al carro</h1>
+    </div>
+    <div>&nbsp;</div>
+
+    <form th:action="@{/compras/guardar}" th:object="${compra}" method="post"
+          style="max-width:600px; margin:0 auto;">
+        <!-- <input type="hidden" name="usuarioId" th:value="${usuario}">-->
+        <div class="form-group row">
+            <label class="col-form-label col-sm-4">Seleccione un comprador:</label>
+            <div class="col-sm-8">
+                <select name="usuarioId" class="form-control" required>
+                    <th:block th:each="usuario : ${listaUsuarios}">
+                        <option th:text="${usuario.email}" th:value="${usuario.id}"></option>
+                    </th:block>
+                </select>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-form-label col-sm-4">Seleccione un producto:</label>
+            <div class="col-sm-8">
+                <select name="productoId" class="form-control" required>
+                    <th:block th:each="producto : ${listaProductos}">
+                        <option th:text="${producto.nombre}" th:value="${producto.id}"></option>
+                    </th:block>
+                </select>
+            </div>
+        </div>
+        <th:block>
+            <div class="form-group row">
+                <!--<label class="col-form-label col-sm-4">Cantidad: </label>-->
+                <div class="">
+                    <input type="number" id="cantidad" name="cantidad" class="form-control" placeholder="Cantidad" th:field="*{cantidad}" oninput="calcularPrecioTotal()">
+                </div>
+                <div class="">
+                    <input type="number" id="prunit" name="prunit" class="form-control" placeholder="pr unit" th:field="*{prunit}" oninput="calcularPrecioTotal()">
+                </div>
+                <div class="">
+                    <input type="number" id="prtotal" name="prtotal" class="form-control" readonly>
+                </div>
+            </div>
+            <!--<div class="form-group row">
+                <div class="">
+                    <input type="number" name="subtotal" class="form-control" th:value="${compra.cantidad * compra.prunit}" disabled>
+                </div>
+                <div class="">
+                    <input type="number" name="iva" class="form-control" th:value="${(compra.cantidad * compra.prunit) * 0.19}" disabled>
+                </div>
+                <div class="">
+                    <input type="number" name="totalneto" class="form-control" th:value="${(compra.cantidad * compra.prunit) + ((compra.cantidad * compra.prunit) * 0.19)}" disabled>
+                </div>
+            </div>-->
+
+        </th:block>
+        <div class="text-center p">
+            <button type="submit" class="btn btn-primary">Guardar</button>
+        </div>
+
+    </form>
+</div>
+</body>
+</html>

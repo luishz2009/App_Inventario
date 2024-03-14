@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Aplicacion Inventario</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="">App Inventario</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <a href="http://localhost:8080/">Inicio</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container text-center">
+    <div>
+        <h1>Lista de Compras</h1>
+    </div>
+    <div class="p-2">
+        <a class="h2" href="compras/nueva">Agregar compra</a>
+    </div>
+    <div>
+        <table class="table table-bordered">
+            <thead class="thead-dark">
+            <tr>
+                <th>Id</th>
+                <th>Comprador</th>
+                <th>Cant de productos</th>
+                <th>Total neto</th>
+                <th>Acciones</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="compra: ${listaCompras}">
+                <td th:text="${compra.id}"></td>
+                <td th:text="${compra.usuario}"></td>
+                <td th:text="${compra.cantidad}"></td>
+                <td th:text="${compra.cantidad * compra.prunit}"></td>
+                <td>
+                    <li class="nav-item">
+                    <!--<a th:href="@{'/compras/editar/' + ${marca.id}}" class="btn btn-info">Editar</a>-->
+                     &nbsp;&nbsp;
+                    <a th:href="@{'/compras/eliminar/'+ ${compra.id}}" class="btn btn-danger">Eliminar</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

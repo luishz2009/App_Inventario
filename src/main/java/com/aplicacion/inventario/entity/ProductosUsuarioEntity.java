@@ -19,6 +19,7 @@ public class ProductosUsuarioEntity {
     private Integer id;
 
     private int cantidad;
+    private float prunit;
 
     @ManyToOne
     @JoinColumn(name = "producto_id")
@@ -34,11 +35,17 @@ public class ProductosUsuarioEntity {
         this.usuario = usuario;
     }
 
+    public ProductosUsuarioEntity(int cantidad, float prunit) {
+        this.cantidad = cantidad;
+        this.prunit = prunit;
+    }
+
     @Override
     public String toString() {
         return "ProductosUsuarioEntity{" +
                 "id=" + id +
                 ", cantidad=" + cantidad +
+                ", prunit=" + prunit +
                 ", producto=" + producto +
                 ", usuario=" + usuario +
                 '}';
