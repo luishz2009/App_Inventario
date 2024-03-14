@@ -23,7 +23,6 @@ public class ProductoEntity {
 
     @Column(length = 150, nullable = false, unique = true)
     private String nombre;
-    private float precio;
 
     /*
      Una categoría puede tener muchos productos
