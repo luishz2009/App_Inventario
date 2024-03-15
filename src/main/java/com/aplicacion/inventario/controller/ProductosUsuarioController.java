@@ -66,6 +66,41 @@ public class ProductosUsuarioController {
         productosUsuarioRepository.save(compra);
         return "redirect:/compras";
     }
+    /*@GetMapping("/compras/editar/{compraId}")
+    public String formActualizarCompra(@PathVariable("compraId") Integer compraId,
+                                       @RequestParam ("usuarioId") Integer usuarioId,
+                                       @RequestParam("productoId") Integer productoId, Model model){
+
+        ProductosUsuarioEntity compra = productosUsuarioRepository.findById(compraId).get();
+        UsuarioEntity usuario = usuarioRepository.findById(usuarioId).get();
+        ProductoEntity producto = productoRepository.findById(productoId).get();
+
+        List<UsuarioEntity> listaUsuarios = usuarioRepository.findAll();
+        List<ProductoEntity> listaProductos = productoRepository.findAll();
+        model.addAttribute("listaUsuarios", listaUsuarios);
+        model.addAttribute("listaProductos", listaProductos);
+        model.addAttribute("compra", compra);
+
+        compra.setUsuario(usuario);
+        compra.setProducto(producto);
+        productosUsuarioRepository.save(compra);
+
+        return "form_editar_compra";
+    }
+*/
+    @GetMapping("/compras/editar/id")
+    public String formActualizarCompra(@PathVariable("id") Integer id, Model model){
+        ProductosUsuarioEntity compra = productosUsuarioRepository.findById(id).orElse(null);
+        List<UsuarioEntity> listaUsuarios = usuarioRepository.findAll();
+        List<ProductoEntity> listaProductos = productoRepository.findAll();
+
+        model.addAttribute("compra", compra);
+        model.addAttribute("listaUsuarios", listaUsuarios);
+        model.addAttribute("listaProductos", listaProductos);
+
+        return "form_editar_compra";
+    }
+
 
     @GetMapping("/compras/eliminar/{id}")
     public String eliminarCompra(@PathVariable("id") Integer id){

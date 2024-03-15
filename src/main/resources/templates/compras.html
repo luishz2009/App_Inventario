@@ -46,8 +46,7 @@
                 <td th:text="${compra.cantidad}"></td>
                 <td th:text="${compra.cantidad * compra.prunit}"></td>
                 <td>
-                    <li class="nav-item">
-                    <!--<a th:href="@{'/compras/editar/' + ${marca.id}}" class="btn btn-info">Editar</a>-->
+                    <a th:href="@{'/compras/editar/' + ${compra.id}}" class="btn btn-info">Editar</a>
                      &nbsp;&nbsp;
                     <a th:href="@{'/compras/eliminar/'+ ${compra.id}}" class="btn btn-danger">Eliminar</a>
                 </td>
