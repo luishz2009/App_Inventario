@@ -41,10 +41,12 @@
     <form th:action="@{/compras/guardar}" th:object="${compra}" method="post"
           style="max-width:600px; margin:0 auto;">
         <input type="hidden" th:field="*{id}" th:value="${compra.id}">
+        <input type="hidden" name="usuarioId" th:value="${compra.usuario.id}">
+        <input type="hidden" name="productoId" th:value="${compra.producto.id}">
         <div class="form-group row">
             <label class="col-form-label col-sm-4">Seleccione un comprador:</label>
             <div class="col-sm-8">
-                <select name="usuarioId" class="form-control" required>
+                <select th:field="*{usuario}" class="form-control" required>
                     <th:block th:each="usuario : ${listaUsuarios}">
                         <option th:text="${usuario.email}" th:value="${usuario.id}"></option>
                     </th:block>
@@ -54,7 +56,7 @@
         <div class="form-group row">
             <label class="col-form-label col-sm-4">Seleccione un producto:</label>
             <div class="col-sm-8">
-                <select name="productoId" class="form-control" required>
+                <select th:field="*{producto}" class="form-control" required>
                     <th:block th:each="producto : ${listaProductos}">
                         <option th:text="${producto.nombre}" th:value="${producto.id}"></option>
                     </th:block>

@@ -47,7 +47,8 @@ public class ProductosUsuarioController {
         return "form_compra";
     }
     @PostMapping("/compras/guardar")
-    public String guardarComprasByUsuario(@RequestParam ("usuarioId") Integer usuarioId,
+    public String guardarComprasByUsuario(ProductosUsuarioEntity compra,
+                                          @RequestParam ("usuarioId") Integer usuarioId,
                                           @RequestParam("productoId") Integer productoId,
                                           @RequestParam("cantidad") int cantidad,
                                           @RequestParam("prunit") float prunit){
@@ -58,39 +59,22 @@ public class ProductosUsuarioController {
 
         UsuarioEntity usuario = usuarioRepository.findById(usuarioId).orElse(null);
         ProductoEntity producto = productoRepository.findById(productoId).orElse(null);
-        ProductosUsuarioEntity compra = new ProductosUsuarioEntity(cantidad, prunit);
 
-        compra.setUsuario(usuario);
-        compra.setProducto(producto);
+        //Verificar si la compra existe
+        if (compra != null && usuario != null && producto != null){
+            compra.setUsuario(usuario);
+            compra.setProducto(producto);
+            compra.setCantidad(cantidad);
+            compra.setPrunit(prunit);
 
-        productosUsuarioRepository.save(compra);
+            productosUsuarioRepository.save(compra);
+        }
         return "redirect:/compras";
     }
-    /*@GetMapping("/compras/editar/{compraId}")
-    public String formActualizarCompra(@PathVariable("compraId") Integer compraId,
-                                       @RequestParam ("usuarioId") Integer usuarioId,
-                                       @RequestParam("productoId") Integer productoId, Model model){
 
-        ProductosUsuarioEntity compra = productosUsuarioRepository.findById(compraId).get();
-        UsuarioEntity usuario = usuarioRepository.findById(usuarioId).get();
-        ProductoEntity producto = productoRepository.findById(productoId).get();
-
-        List<UsuarioEntity> listaUsuarios = usuarioRepository.findAll();
-        List<ProductoEntity> listaProductos = productoRepository.findAll();
-        model.addAttribute("listaUsuarios", listaUsuarios);
-        model.addAttribute("listaProductos", listaProductos);
-        model.addAttribute("compra", compra);
-
-        compra.setUsuario(usuario);
-        compra.setProducto(producto);
-        productosUsuarioRepository.save(compra);
-
-        return "form_editar_compra";
-    }
-*/
-    @GetMapping("/compras/editar/id")
+    @GetMapping("/compras/editar/{id}")
     public String formActualizarCompra(@PathVariable("id") Integer id, Model model){
-        ProductosUsuarioEntity compra = productosUsuarioRepository.findById(id).orElse(null);
+        ProductosUsuarioEntity compra = productosUsuarioRepository.findById(id).get();
         List<UsuarioEntity> listaUsuarios = usuarioRepository.findAll();
         List<ProductoEntity> listaProductos = productoRepository.findAll();
 
@@ -98,10 +82,10 @@ public class ProductosUsuarioController {
         model.addAttribute("listaUsuarios", listaUsuarios);
         model.addAttribute("listaProductos", listaProductos);
 
+       // productosUsuarioRepository.save(compra);
+
         return "form_editar_compra";
     }
-
-
     @GetMapping("/compras/eliminar/{id}")
     public String eliminarCompra(@PathVariable("id") Integer id){
         productosUsuarioRepository.deleteById(id);
